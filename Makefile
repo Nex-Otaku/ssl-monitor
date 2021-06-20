@@ -46,3 +46,11 @@ install-to-host:
 # Тянем изменения из Git
 pull:
 	$(RUN_SSH) 'cd ${PROJECT_DIR} && git pull'
+
+
+
+# Выполняем команду "artisan" в docker-контейнере PHP.
+ARTISAN = docker exec ssl_monitor_php_container php artisan
+
+migrate:
+	$(ARTISAN) migrate
