@@ -12,7 +12,9 @@ class SpatieCertificateChecker implements CertificateChecker
 
         return new CertificateInfo(
             $certificate->getDomain(),
-            $certificate->expirationDate()->format('d.m.Y')
+            $certificate->expirationDate()->format('d.m.Y'),
+            $certificate->isExpired(),
+            $certificate->daysUntilExpirationDate()
         );
     }
 }
