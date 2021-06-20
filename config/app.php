@@ -1,5 +1,7 @@
 <?php
 
+use App\Ssl\CheckCertificate\Laravel\CheckCertificateServiceProvider;
+
 return [
 
     /*
@@ -175,6 +177,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // SSL Monitor
+        // Ssl/CheckCertificate
+        CheckCertificateServiceProvider::class,
     ],
 
     /*
