@@ -1,5 +1,8 @@
 <?php
 
+use App\Monitoring\Alert\Laravel\AlertServiceProvider;
+use App\Monitoring\ManageDomain\Laravel\ManageDomainServiceProvider;
+use App\Notification\Laravel\NotificationServiceProvider;
 use App\Ssl\CheckCertificate\Laravel\CheckCertificateServiceProvider;
 
 return [
@@ -180,6 +183,9 @@ return [
         // SSL Monitor
         // Ssl/CheckCertificate
         CheckCertificateServiceProvider::class,
+        AlertServiceProvider::class,
+        ManageDomainServiceProvider::class,
+        NotificationServiceProvider::class,
     ],
 
     /*

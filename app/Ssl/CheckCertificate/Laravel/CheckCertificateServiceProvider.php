@@ -2,6 +2,7 @@
 
 namespace App\Ssl\CheckCertificate\Laravel;
 
+use App\Ssl\CheckCertificate\CertificateChecker\CertificateChecker;
 use App\Ssl\CheckCertificate\CertificateChecker\SpatieCertificateChecker;
 use App\Ssl\CheckCertificate\Laravel\Commands\CheckCertificateCommand;
 use Illuminate\Contracts\Support\DeferrableProvider;
@@ -16,10 +17,11 @@ class CheckCertificateServiceProvider extends ServiceProvider implements Deferra
      */
     public function register()
     {
-        $this->app->singleton('command.checkCertificate', function () {
-            return new CheckCertificateCommand(
-                new SpatieCertificateChecker()
-            );
+        $this->app->bind(CertificateChecker::class, SpatieCertificateChecker::class);
+        $app = $this->app;
+
+        $this->app->singleton('command.checkCertificate', function () use ($app) {
+            return $app->make(CheckCertificateCommand::class);
         });
 
         $this->commands(['command.checkCertificate']);
