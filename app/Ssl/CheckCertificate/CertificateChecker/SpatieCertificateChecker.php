@@ -2,14 +2,17 @@
 
 namespace App\Ssl\CheckCertificate\CertificateChecker;
 
+use Spatie\SslCertificate\SslCertificate;
+
 class SpatieCertificateChecker implements CertificateChecker
 {
     public function check(string $domain): CertificateInfo
     {
-        // TODO: Implement check() method.
+        $certificate = SslCertificate::createForHostName($domain);
+
         return new CertificateInfo(
-            $domain,
-            '05.05.2033'
+            $certificate->getDomain(),
+            $certificate->expirationDate()->format('d.m.Y')
         );
     }
 }
