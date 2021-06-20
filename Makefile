@@ -27,10 +27,6 @@ docker-build:
 test:
 	docker exec -ti ssl_monitor_php_container php artisan test
 
-# Test Inner Nginx
-test-inner-nginx:
-	http --body localhost:${NGINX_LOCAL_PORT}/api/protected-echo?message=1234 Accept:application/json ${APIROAD_TOKEN_NAME}:${APIROAD_TOKEN_VALUE}
-
 # Выполняем команду по SSH на удалённом хосте.
 RUN_SSH = ssh ${PROD_SSH_USER}@${PROD_SSH_HOST} -p 22
 
