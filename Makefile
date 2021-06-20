@@ -27,6 +27,20 @@ docker-build:
 test:
 	docker exec -ti ssl_monitor_php_container php artisan test
 
+# Build front
+front:
+	npm install && npm run dev
+
+
+# Выполняем команду "artisan" в docker-контейнере PHP.
+ARTISAN = docker exec ssl_monitor_php_container php artisan
+
+migrate:
+	$(ARTISAN) migrate
+
+
+# -------------- Deploy to Prod -------------------
+
 # Выполняем команду по SSH на удалённом хосте.
 RUN_SSH = ssh ${PROD_SSH_USER}@${PROD_SSH_HOST} -p 22
 
@@ -48,9 +62,3 @@ pull:
 	$(RUN_SSH) 'cd ${PROJECT_DIR} && git pull'
 
 
-
-# Выполняем команду "artisan" в docker-контейнере PHP.
-ARTISAN = docker exec ssl_monitor_php_container php artisan
-
-migrate:
-	$(ARTISAN) migrate
