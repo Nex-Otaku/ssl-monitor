@@ -16,7 +16,7 @@ cd ${SCRIPT_DIR}/..
 git config core.fileMode false
 [ -f ".env" ] && echo "ENV exists, skipping copying" || cp .env.example .env
 
-docker-compose up
+docker-compose up -d
 
 # Load .env variables
 source .env
