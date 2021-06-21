@@ -8,7 +8,7 @@ no-command:
 
 # Reload Nginx Config
 nginx-reload:
-	docker exec ssl_monitor_nginx_container nginx -s reload
+	docker exec ${NGINX_CONTAINER} nginx -s reload
 
 docker-rebuild: docker-down docker-build docker-up
 
@@ -21,11 +21,11 @@ docker-down:
 docker-build:
 	docker-compose build
 
-# -------------------------------
+# --------------- Development ----------------
 
 # Unit Tests
 test:
-	docker exec -ti ssl_monitor_php_container php artisan test
+	docker exec -ti ${PHP_CONTAINER} php artisan test
 
 # Build front
 front:
@@ -33,7 +33,7 @@ front:
 
 
 # Выполняем команду "artisan" в docker-контейнере PHP.
-ARTISAN = docker exec ssl_monitor_php_container php artisan
+ARTISAN = docker exec ${PHP_CONTAINER} php artisan
 
 migrate:
 	$(ARTISAN) migrate
