@@ -10,18 +10,11 @@ class SpatieCertificateChecker implements CertificateChecker
     {
         $certificate = SslCertificate::createForHostName($domain);
 
-//        return new CertificateInfo(
-//            $certificate->getDomain(),
-//            $certificate->expirationDate()->format('d.m.Y'),
-//            $certificate->isExpired(),
-//            $certificate->daysUntilExpirationDate()
-//        );
-
         return new CertificateInfo(
-            $domain,
-            '05.05.2025',
-            false,
-            1
+            $certificate->getDomain(),
+            $certificate->expirationDate()->format('d.m.Y'),
+            $certificate->isExpired(),
+            $certificate->daysUntilExpirationDate()
         );
     }
 }
