@@ -3,6 +3,7 @@ services:
 
   # PHP
   ssl_monitor_php_service:
+    image: ssl_monitor_php_image
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
@@ -10,7 +11,27 @@ services:
     restart: unless-stopped
     tty: true
     environment:
+      CONTAINER_ROLE: app
       SERVICE_NAME: ssl_monitor_php_service
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - ssl-monitor-network
+
+  # Scheduler
+  ssl_monitor_scheduler_service:
+    image: ssl_monitor_php_image
+    container_name: ssl_monitor_scheduler_container
+    depends_on:
+      - ssl_monitor_php_service
+    restart: unless-stopped
+    tty: true
+    environment:
+      CONTAINER_ROLE: scheduler
+      SERVICE_NAME: ssl_monitor_scheduler_service
       SERVICE_TAGS: dev
     working_dir: /var/www
     volumes:

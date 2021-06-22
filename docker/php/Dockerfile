@@ -34,9 +34,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
+# Start script to select running mode: App, Queue, Scheduler
+COPY docker/php/start.sh /usr/local/bin/start
+RUN chown www:www /usr/local/bin/start
+RUN chmod u+x /usr/local/bin/start
+
 # Change current user to www
 USER www
 
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
-CMD ["php-fpm"]
+CMD ["/usr/local/bin/start"]
