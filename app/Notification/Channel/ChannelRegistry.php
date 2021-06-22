@@ -16,7 +16,7 @@ class ChannelRegistry
         $new           = clone $this;
         $new->telegram = $telegram;
 
-        return $this;
+        return $new;
     }
 
     public function getTelegram(): NotificationChannel
