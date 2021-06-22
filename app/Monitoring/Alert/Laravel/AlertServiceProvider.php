@@ -4,12 +4,23 @@ namespace App\Monitoring\Alert\Laravel;
 
 use App\Monitoring\Alert\AlertChecker;
 use App\Monitoring\Alert\Laravel\Commands\AlertDryRunCommand;
+use App\Monitoring\Alert\Laravel\Commands\AlertSslCertificatesCommand;
 use App\Notification\EchoNotifier;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
 class AlertServiceProvider extends ServiceProvider implements DeferrableProvider
 {
+    public function boot()
+    {
+        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+            $schedule->command('alert:ssl-certificates')
+                     ->timezone('Europe/Moscow')
+                     ->dailyAt('01:00');
+        });
+    }
+
     /**
      * Register the service provider.
      *
@@ -26,7 +37,17 @@ class AlertServiceProvider extends ServiceProvider implements DeferrableProvider
             );
         });
 
-        $this->commands(['command.alertDryRun']);
+        $commands []= 'command.alertDryRun';
+
+        $this->app->singleton('command.alertSslCertificates', function () use ($app) {
+            return new AlertSslCertificatesCommand(
+                $app->make(AlertChecker::class)
+            );
+        });
+
+        $commands []= 'command.alertSslCertificates';
+
+        $this->commands($commands);
     }
 
     /**
@@ -36,6 +57,9 @@ class AlertServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     public function provides()
     {
-        return ['command.alertDryRun'];
+        return [
+                'command.alertDryRun',
+                'command.alertSslCertificates',
+            ];
     }
 }
