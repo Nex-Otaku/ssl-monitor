@@ -48,6 +48,10 @@ RUN_SSH = ssh ${PROD_SSH_USER}@${PROD_SSH_HOST} -p 22
 deploy:
 	$(RUN_SSH) './${PROJECT_DIR}/bin/deploy.sh'
 
+# Обновляем контейнеры в проде:
+rebuild-docker-on-prod:
+	$(RUN_SSH) './${PROJECT_DIR}/bin/rebuild-docker.sh'
+
 # Публичный ключ SSH
 show-ssh-key:
 	$(RUN_SSH) 'cat ~/.ssh/id_rsa.pub'
