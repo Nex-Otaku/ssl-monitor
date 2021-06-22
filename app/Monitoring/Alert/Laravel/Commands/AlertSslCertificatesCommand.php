@@ -2,6 +2,7 @@
 
 namespace App\Monitoring\Alert\Laravel\Commands;
 
+use App\Common\Logger\EchoLogger;
 use App\Monitoring\Alert\AlertChecker;
 use Illuminate\Console\Command;
 
@@ -44,6 +45,7 @@ class AlertSslCertificatesCommand extends Command
     public function handle()
     {
         $this->alertChecker
+            ->withLogger(new EchoLogger())
             ->alertExpiredDomains();
 
         return 0;

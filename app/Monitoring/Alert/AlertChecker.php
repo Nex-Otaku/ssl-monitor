@@ -2,6 +2,7 @@
 
 namespace App\Monitoring\Alert;
 
+use App\Common\Logger\Logger;
 use App\Monitoring\DomainName;
 use App\Monitoring\ManageDomain\MonitoringDomainsList;
 use App\Notification\Notifier;
@@ -12,16 +13,19 @@ class AlertChecker
     private MonitoringDomainsList $monitoringDomainsList;
     private CertificateChecker    $certificateChecker;
     private Notifier              $notifier;
+    private Logger                $logger;
 
     public function __construct(
         MonitoringDomainsList $monitoringDomainsList,
         CertificateChecker $certificateChecker,
-        Notifier $notifier
+        Notifier $notifier,
+        Logger $logger
     )
     {
         $this->monitoringDomainsList = $monitoringDomainsList;
         $this->certificateChecker = $certificateChecker;
         $this->notifier = $notifier;
+        $this->logger = $logger;
     }
 
     public function withNotifier(Notifier $notifier): self
@@ -32,21 +36,42 @@ class AlertChecker
         return $new;
     }
 
+    public function withLogger(Logger $logger): self
+    {
+        $new         = clone $this;
+        $new->logger = $logger;
+
+        return $new;
+    }
+
     public function alertExpiredDomains(): void
     {
+        $this->logger->write('Начали проверку SSL сертификатов.');
+
         $domains = $this->monitoringDomainsList->getDomains();
+        $domainsCount = count($domains);
+        $this->logger->write("Получили список доменов. Всего доменов для проверки: {$domainsCount}");
 
         foreach ($domains as $domain) {
+            $this->logger->nextLine();
+            $this->logger->write("Проверяем домен: {$domain->toString()}");
+
             $certificateInfo = $this->certificateChecker->check($domain->toString());
 
             if ($certificateInfo->isExpired()) {
                 $this->notifyExpired($domain);
+                $this->logger->write("Сертификат истёк. Отправлено уведомление.");
             } elseif ($certificateInfo->daysLeft() === 1) {
                 $this->notifyLastDay($domain);
+                $this->logger->write("Сертификат действует последний день. Отправлено уведомление.");
             } elseif ($certificateInfo->daysLeft() === 3) {
                 $this->notifyLastThreeDays($domain);
+                $this->logger->write("Осталось три дня до истечения срока сертификата. Отправлено уведомление.");
             } elseif ($certificateInfo->daysLeft() === 7) {
                 $this->notifyLastWeek($domain);
+                $this->logger->write("Осталась неделя до истечения срока сертификата. Отправлено уведомление.");
+            } else {
+                $this->logger->write("[ OK ] Сертификат в полном порядке. Осталось дней: {$certificateInfo->daysLeft()}");
             }
         }
     }

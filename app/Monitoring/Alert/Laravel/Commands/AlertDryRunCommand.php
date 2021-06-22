@@ -2,6 +2,7 @@
 
 namespace App\Monitoring\Alert\Laravel\Commands;
 
+use App\Common\Logger\EchoLogger;
 use App\Monitoring\Alert\AlertChecker;
 use App\Notification\EchoNotifier;
 use Illuminate\Console\Command;
@@ -51,6 +52,7 @@ class AlertDryRunCommand extends Command
 
         $this->alertChecker
             ->withNotifier($this->echoNotifier)
+            ->withLogger(new EchoLogger())
             ->alertExpiredDomains();
 
         return 0;

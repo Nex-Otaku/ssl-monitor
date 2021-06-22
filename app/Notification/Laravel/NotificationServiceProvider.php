@@ -2,6 +2,8 @@
 
 namespace App\Notification\Laravel;
 
+use App\Common\Logger\Logger;
+use App\Common\Logger\NullLogger;
 use App\Notification\Http\GuzzleHttpClient;
 use App\Notification\Http\HttpClient;
 use App\Notification\Channel\ChannelRegistry;
@@ -28,6 +30,7 @@ class NotificationServiceProvider extends ServiceProvider
         $this->app->bind(Notifier::class, DefaultNotifier::class);
         $this->app->bind(RecipientsList::class, ConfigRecipientsList::class);
         $this->app->bind(HttpClient::class, GuzzleHttpClient::class);
+        $this->app->bind(Logger::class, NullLogger::class);
 
         $this->app->bind(TelegramMessageSender::class, function () use ($app) {
             return new NoCodeApiTelegramMessageSender(
