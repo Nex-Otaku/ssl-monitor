@@ -24,4 +24,9 @@ class EchoNotifier implements Notifier
     {
         $this->output = $output;
     }
+
+    public function notifyAdmin(string $message): void
+    {
+        $this->output->info("Message to admin: {$message}");
+    }
 }

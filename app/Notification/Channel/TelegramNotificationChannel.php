@@ -21,4 +21,9 @@ class TelegramNotificationChannel implements NotificationChannel
     {
         $this->telegramMessageSender->send($message);
     }
+
+    public function sendCustomNotification(Recipient $recipient, string $message): void
+    {
+        $this->telegramMessageSender->send($message);
+    }
 }

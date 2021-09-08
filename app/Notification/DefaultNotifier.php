@@ -46,4 +46,18 @@ class DefaultNotifier implements Notifier
             $this->channelRegistry->getTelegram()->sendDomainNotification($recipient, $domain, $message);
         }
     }
+
+    public function notifyAdmin(string $message): void
+    {
+        $recipient = $this->getAdminRecipient();
+
+        if ($recipient->isTelegram()) {
+            $this->channelRegistry->getTelegram()->sendCustomNotification($recipient, $message);
+        }
+    }
+
+    private function getAdminRecipient(): Recipient
+    {
+        return new Recipient(true);
+    }
 }

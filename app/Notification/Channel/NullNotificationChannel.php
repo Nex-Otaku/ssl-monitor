@@ -11,4 +11,9 @@ class NullNotificationChannel implements NotificationChannel
     {
         // Не делаем ничего.
     }
+
+    public function sendCustomNotification(Recipient $recipient, string $message): void
+    {
+        // Не делаем ничего.
+    }
 }
