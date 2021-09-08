@@ -20,7 +20,8 @@ class FakeCertificateChecker implements CertificateChecker
                 $domain,
                 '05.05.2025',
                 false,
-                100
+                100,
+                'ACME Inc.'
             )
         );
     }
@@ -32,7 +33,8 @@ class FakeCertificateChecker implements CertificateChecker
                 $domain,
                 '05.05.2020',
                 true,
-                0
+                0,
+                'ACME Inc.'
             )
         );
     }

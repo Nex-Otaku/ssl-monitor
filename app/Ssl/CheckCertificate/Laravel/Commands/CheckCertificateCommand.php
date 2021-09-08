@@ -45,6 +45,7 @@ class CheckCertificateCommand extends Command
     {
         $info = $this->certificateChecker->check($this->argument('domain'));
         $this->info("Дата истечения сертификата по домену {$info->getDomain()} - {$info->getExpireDate()}");
+        $this->info("Сертификат выпущен: {$info->getIssuerOrganization()}");
 
         return 0;
     }
