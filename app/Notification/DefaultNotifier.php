@@ -23,7 +23,7 @@ class DefaultNotifier implements Notifier
 
     public function notifyDomainOwner(DomainName $domain, string $message): void
     {
-        if (!$this->isNotified($domain)) {
+        if ($this->isNotified($domain)) {
             return;
         }
 
