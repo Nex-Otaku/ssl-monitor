@@ -28,9 +28,10 @@ class DefaultNotifier implements Notifier
         }
 
         $recipients = $this->recipientsList->getRecipients($domain);
+        $messageFormatted = "{$domain->toString()}: {$message}";
 
         foreach ($recipients as $recipient) {
-            $this->sendNotification($recipient, $domain, $message);
+            $this->sendNotification($recipient, $domain, $messageFormatted);
         }
     }
 
