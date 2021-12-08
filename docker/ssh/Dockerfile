@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     libicu-dev
 # -- Copy from PHP Dockerfile --
 
-RUN apt-get install -y openssh-server \
+RUN apt-get update && apt-get install -y openssh-server \
     && mkdir /var/run/sshd \
     && echo 'root:secret' | chpasswd \
     && sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
