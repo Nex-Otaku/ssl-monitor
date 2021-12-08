@@ -40,6 +40,24 @@ services:
     networks:
       - ssl-monitor-network
 
+  # SSH for Invoker access
+  ssl_monitor_ssh_service:
+    image: ssl_monitor_ssh_image
+    container_name: ssl_monitor_ssh_container
+    build:
+      context: .
+      dockerfile: ./docker/ssh/Dockerfile
+    restart: on-failure
+    ports:
+      - '2290:22'
+    links:
+      - ssl_monitor_mysql_service
+      - ssl_monitor_php_service
+    volumes:
+      - ./:/var/www
+    networks:
+      - ssl-monitor-network
+
   # Nginx
   ssl_monitor_nginx_service:
     image: nginx:alpine
