@@ -15,6 +15,8 @@ class Monitor extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'user_tg_id',
         'site_id',

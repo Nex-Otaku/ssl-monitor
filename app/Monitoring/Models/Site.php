@@ -14,6 +14,8 @@ class Site extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'domain',
         'created_at',

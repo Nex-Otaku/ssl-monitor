@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Monitoring\Entities;
+
+use App\Monitoring\Models\Monitor as MonitorModel;
+use App\Monitoring\Models\Site as SiteModel;
+use App\Monitoring\Models\Check as CheckModel;
+
+class MonitoringSite
+{
+    private const CHECK_STATUS_OK = 'ok';
+    private const CHECK_STATUS_WARNING = 'warning';
+    private const CHECK_STATUS_FAIL = 'fail';
+
+    private MonitorModel $monitor;
+
+    private function __construct(
+        MonitorModel $monitor
+    ) {
+        $this->monitor = $monitor;
+    }
+
+    public static function create(string $domainName, int $userTgId): self
+    {
+        /** @var SiteModel $site */
+        $site = SiteModel::firstOrCreate(
+            [
+                'domain' => $domainName,
+            ],
+            [
+                'created_at' => now(),
+            ],
+        );
+
+        /** @var MonitorModel $monitor */
+        $monitor = MonitorModel::firstOrCreate(
+            [
+                'user_tg_id' => $userTgId,
+                'site_id' => $site->id,
+            ],
+            [
+                'created_at' => now(),
+            ],
+        );
+
+        return new self($monitor);
+    }
+
+    /**
+     * @return self[]
+     */
+    public static function forTgUser(int $userTgId): array
+    {
+        $records = MonitorModel::where(['user_tg_id' => $userTgId])->get();
+
+        return self::packArray($records);
+    }
+
+    /**
+     * @return self[]
+     */
+    public static function all(): array
+    {
+        $records = MonitorModel::all()->all();
+
+        return self::packArray($records);
+    }
+
+    /**
+     * @return self[]
+     */
+    private static function packArray(array $records): array
+    {
+        $items = [];
+
+        foreach ($records as $record) {
+            $items [] = new self($record);
+        }
+
+        return $items;
+    }
+
+    public function getDomainName(): string
+    {
+        return $this->getSite()->domain;
+    }
+
+    private function getSite(): SiteModel
+    {
+        return SiteModel::where(['id' => $this->monitor->site_id])->firstOrFail();
+    }
+
+    public function logCheckSuccess(): void
+    {
+        $this->logCheck(self::CHECK_STATUS_OK, null);
+    }
+
+    public function logCheckWarning(string $warningMessage): void
+    {
+        $this->logCheck(self::CHECK_STATUS_WARNING, $warningMessage);
+    }
+
+    public function logCheckFail(string $failMessage): void
+    {
+        $this->logCheck(self::CHECK_STATUS_FAIL, $failMessage);
+    }
+
+    private function logCheck(string $status, ?string $reason): void
+    {
+        $now = now();
+
+        $check = new CheckModel(
+            [
+                'date' => $now,
+                'site_id' => $this->monitor->site_id,
+                'status' => $status,
+                'reason' => $reason,
+                'created_at' => $now,
+            ]
+        );
+
+        $check->saveOrFail();
+    }
+}
