@@ -3,6 +3,7 @@
 use App\Monitoring\Alert\Laravel\AlertServiceProvider;
 use App\Monitoring\DailyReport\Laravel\DailyReportServiceProvider;
 use App\Monitoring\ManageDomain\Laravel\ManageDomainServiceProvider;
+use App\Monitoring\MonitoringServiceProvider;
 use App\Notification\Laravel\NotificationServiceProvider;
 use App\Ssl\CheckCertificate\Laravel\CheckCertificateServiceProvider;
 
@@ -187,7 +188,8 @@ return [
         AlertServiceProvider::class,
         ManageDomainServiceProvider::class,
         NotificationServiceProvider::class,
-        DailyReportServiceProvider::class
+        DailyReportServiceProvider::class,
+        MonitoringServiceProvider::class,
     ],
 
     /*
