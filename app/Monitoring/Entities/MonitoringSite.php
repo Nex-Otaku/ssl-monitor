@@ -5,6 +5,7 @@ namespace App\Monitoring\Entities;
 use App\Monitoring\Models\Monitor as MonitorModel;
 use App\Monitoring\Models\Site as SiteModel;
 use App\Monitoring\Models\Check as CheckModel;
+use App\Monitoring\Models\SiteStatus as SiteStatusModel;
 
 class MonitoringSite
 {
@@ -120,5 +121,30 @@ class MonitoringSite
         );
 
         $check->saveOrFail();
+
+        /** @var SiteStatusModel $siteStatus */
+        $siteStatus = SiteStatusModel::firstOrCreate(
+            [
+                'site_id' => $this->monitor->site_id,
+            ],
+            [
+                'status' => $status,
+                'reason' => $reason,
+                'checked_at' => $now,
+                'uptime_percent' => '0.0',
+                'days_online' => 0,
+                'created_at' => $now,
+            ],
+        );
+
+        $siteStatus->update(
+            [
+                'status' => $status,
+                'reason' => $reason,
+                'checked_at' => $now,
+                'uptime_percent' => '0.0', // TODO Вычислить
+                'days_online' => 0, // TODO Вычислить
+            ]
+        );
     }
 }
