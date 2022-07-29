@@ -2,7 +2,7 @@
 
 namespace App\Notification\Laravel\Commands;
 
-use App\Monitoring\DomainName;
+use App\Monitoring\Vo\DomainName;
 use App\Notification\Channel\NotificationChannel;
 use App\Notification\Recipient\Recipient;
 use Illuminate\Console\Command;

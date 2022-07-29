@@ -2,7 +2,7 @@
 
 namespace App\Notification\Channel;
 
-use App\Monitoring\DomainName;
+use App\Monitoring\Vo\DomainName;
 use App\Notification\Recipient\Recipient;
 use App\Notification\Telegram\TelegramMessageSender;
 

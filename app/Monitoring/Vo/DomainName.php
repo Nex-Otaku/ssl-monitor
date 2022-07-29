@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Monitoring;
+namespace App\Monitoring\Vo;
 
 class DomainName
 {

@@ -2,7 +2,7 @@
 
 namespace App\Notification;
 
-use App\Monitoring\DomainName;
+use App\Monitoring\Vo\DomainName;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 

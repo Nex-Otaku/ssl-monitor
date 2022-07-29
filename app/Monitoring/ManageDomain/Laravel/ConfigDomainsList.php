@@ -2,8 +2,8 @@
 
 namespace App\Monitoring\ManageDomain\Laravel;
 
-use App\Monitoring\DomainName;
 use App\Monitoring\ManageDomain\MonitoringDomainsList;
+use App\Monitoring\Vo\DomainName;
 
 class ConfigDomainsList implements MonitoringDomainsList
 {

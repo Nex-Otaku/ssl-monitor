@@ -2,7 +2,7 @@
 
 namespace App\Monitoring\ManageDomain;
 
-use App\Monitoring\DomainName;
+use App\Monitoring\Vo\DomainName;
 
 interface MonitoringDomainsList
 {

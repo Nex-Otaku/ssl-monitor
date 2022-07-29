@@ -3,8 +3,8 @@
 namespace App\Monitoring\Alert;
 
 use App\Common\Logger\Logger;
-use App\Monitoring\DomainName;
 use App\Monitoring\ManageDomain\MonitoringDomainsList;
+use App\Monitoring\Vo\DomainName;
 use App\Notification\Notifier;
 use App\Ssl\CheckCertificate\CertificateChecker\CertificateChecker;
 

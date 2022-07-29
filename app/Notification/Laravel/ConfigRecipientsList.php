@@ -2,7 +2,7 @@
 
 namespace App\Notification\Laravel;
 
-use App\Monitoring\DomainName;
+use App\Monitoring\Vo\DomainName;
 use App\Notification\Recipient\Recipient;
 use App\Notification\Recipient\RecipientsList;
 
