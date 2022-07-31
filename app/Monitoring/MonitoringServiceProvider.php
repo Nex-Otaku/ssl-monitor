@@ -3,10 +3,9 @@
 namespace App\Monitoring;
 
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
-class MonitoringServiceProvider extends ServiceProvider implements DeferrableProvider
+class MonitoringServiceProvider extends ServiceProvider
 {
     public function boot()
     {
