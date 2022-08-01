@@ -11,6 +11,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "nutgram/nutgram": "^3.5",
         "spatie/ssl-certificate": "^2.0"
     },
     "require-dev": {
