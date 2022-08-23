@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Ssl\CheckCertificate\Laravel;
+namespace App\Ssl;
 
-use App\Ssl\CheckCertificate\CertificateChecker\CertificateChecker;
-use App\Ssl\CheckCertificate\CertificateChecker\SpatieCertificateChecker;
-use App\Ssl\CheckCertificate\Laravel\Commands\CheckCertificateCommand;
+use App\Ssl\Commands\CheckCertificateCommand;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Logger;
+namespace App\Logger;
 
 class NullLogger implements Logger
 {

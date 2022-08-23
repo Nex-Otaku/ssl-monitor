@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Ssl\CheckCertificate\Laravel\Commands;
+namespace App\Ssl\Commands;
 
-use App\Ssl\CheckCertificate\CertificateChecker\CertificateChecker;
+use App\Ssl\CertificateChecker;
 use Illuminate\Console\Command;
 
 class CheckCertificateCommand extends Command

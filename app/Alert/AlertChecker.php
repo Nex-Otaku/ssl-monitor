@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Monitoring\Alert;
+namespace App\Alert;
 
-use App\Common\Logger\Logger;
+use App\Logger\Logger;
 use App\Monitoring\ManageDomain\MonitoringDomainsList;
 use App\Monitoring\Vo\DomainName;
 use App\Notification\Notifier;
-use App\Ssl\CheckCertificate\CertificateChecker\CertificateChecker;
+use App\Ssl\CertificateChecker;
 
 class AlertChecker
 {

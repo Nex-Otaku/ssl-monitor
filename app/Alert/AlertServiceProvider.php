@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Monitoring\Alert\Laravel;
+namespace App\Alert;
 
-use App\Monitoring\Alert\AlertChecker;
-use App\Monitoring\Alert\Laravel\Commands\AlertDryRunCommand;
-use App\Monitoring\Alert\Laravel\Commands\AlertSslCertificatesCommand;
+use App\Alert\Commands\AlertDryRunCommand;
+use App\Alert\Commands\AlertSslCertificatesCommand;
 use App\Notification\EchoNotifier;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Support\DeferrableProvider;

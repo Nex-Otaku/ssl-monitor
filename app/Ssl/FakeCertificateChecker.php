@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ssl\CheckCertificate\CertificateChecker;
+namespace App\Ssl;
 
 class FakeCertificateChecker implements CertificateChecker
 {

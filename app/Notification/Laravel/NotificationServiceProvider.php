@@ -2,16 +2,16 @@
 
 namespace App\Notification\Laravel;
 
-use App\Common\Logger\Logger;
-use App\Common\Logger\NullLogger;
+use App\Logger\Logger;
+use App\Logger\NullLogger;
+use App\Notification\Channel\ChannelRegistry;
+use App\Notification\Channel\TelegramNotificationChannel;
+use App\Notification\DefaultNotifier;
 use App\Notification\Http\GuzzleHttpClient;
 use App\Notification\Http\HttpClient;
-use App\Notification\Channel\ChannelRegistry;
-use App\Notification\DefaultNotifier;
 use App\Notification\Laravel\Commands\TestNotificationCommand;
 use App\Notification\Notifier;
 use App\Notification\Recipient\RecipientsList;
-use App\Notification\Channel\TelegramNotificationChannel;
 use App\Notification\Telegram\NoCodeApiTelegramMessageSender;
 use App\Notification\Telegram\TelegramMessageSender;
 use Illuminate\Support\ServiceProvider;

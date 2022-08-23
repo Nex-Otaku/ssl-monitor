@@ -1,11 +1,11 @@
 <?php
 
-use App\Monitoring\Alert\Laravel\AlertServiceProvider;
+use App\Alert\AlertServiceProvider;
 use App\Monitoring\DailyReport\Laravel\DailyReportServiceProvider;
 use App\Monitoring\ManageDomain\Laravel\ManageDomainServiceProvider;
 use App\Monitoring\MonitoringServiceProvider;
 use App\Notification\Laravel\NotificationServiceProvider;
-use App\Ssl\CheckCertificate\Laravel\CheckCertificateServiceProvider;
+use App\Ssl\CheckCertificateServiceProvider;
 
 return [
 

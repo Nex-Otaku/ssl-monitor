@@ -1,30 +1,28 @@
 <?php
 
-namespace App\Monitoring\Alert\Laravel\Commands;
+namespace App\Alert\Commands;
 
-use App\Common\Logger\EchoLogger;
-use App\Monitoring\Alert\AlertChecker;
-use App\Notification\EchoNotifier;
+use App\Alert\AlertChecker;
+use App\Logger\EchoLogger;
 use Illuminate\Console\Command;
 
-class AlertDryRunCommand extends Command
+class AlertSslCertificatesCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'alert:dry-run';
+    protected $signature = 'alert:ssl-certificates';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected            $description = 'Показываем, какие алерты будут отправлены, без реальной отправки';
+    protected            $description = 'Проверяем домены и алертим';
 
     private AlertChecker $alertChecker;
-    private EchoNotifier $echoNotifier;
 
     /**
      * Create a new command instance.
@@ -33,11 +31,9 @@ class AlertDryRunCommand extends Command
      */
     public function __construct(
         AlertChecker $alertChecker,
-        EchoNotifier $echoNotifier
     )
     {
         $this->alertChecker = $alertChecker;
-        $this->echoNotifier = $echoNotifier;
         parent::__construct();
     }
 
@@ -48,10 +44,7 @@ class AlertDryRunCommand extends Command
      */
     public function handle()
     {
-        $this->echoNotifier->setOutput($this->output);
-
         $this->alertChecker
-            ->withNotifier($this->echoNotifier)
             ->withLogger(new EchoLogger())
             ->alertExpiredDomains();
 

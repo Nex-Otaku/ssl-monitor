@@ -2,9 +2,9 @@
 
 namespace App\Monitoring\Commands;
 
-use App\Common\Logger\EchoLogger;
+use App\Logger\EchoLogger;
 use App\Monitoring\SiteChecker;
-use App\Ssl\CheckCertificate\CertificateChecker\SpatieCertificateChecker;
+use App\Ssl\SpatieCertificateChecker;
 use Illuminate\Console\Command;
 
 class CheckSitesCommand extends Command

@@ -2,9 +2,9 @@
 
 namespace App\Monitoring;
 
-use App\Common\Logger\Logger;
+use App\Logger\Logger;
 use App\Monitoring\Entities\MonitoringSite;
-use App\Ssl\CheckCertificate\CertificateChecker\CertificateChecker;
+use App\Ssl\CertificateChecker;
 
 class SiteChecker
 {
