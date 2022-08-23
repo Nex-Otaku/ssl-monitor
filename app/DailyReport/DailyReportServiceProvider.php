@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Monitoring\DailyReport\Laravel;
+namespace App\DailyReport;
 
-use App\Monitoring\DailyReport\DailyReport;
-use App\Monitoring\DailyReport\Laravel\Commands\DailyReportCommand;
+use App\DailyReport\Commands\DailyReportCommand;
 use App\Notification\EchoNotifier;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Support\DeferrableProvider;

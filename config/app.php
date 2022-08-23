@@ -1,8 +1,8 @@
 <?php
 
 use App\Alert\AlertServiceProvider;
-use App\Monitoring\DailyReport\Laravel\DailyReportServiceProvider;
-use App\Monitoring\ManageDomain\Laravel\ManageDomainServiceProvider;
+use App\DailyReport\DailyReportServiceProvider;
+use App\Monitoring\ManageDomain\ManageDomainServiceProvider;
 use App\Monitoring\MonitoringServiceProvider;
 use App\Notification\Laravel\NotificationServiceProvider;
 use App\Ssl\CheckCertificateServiceProvider;

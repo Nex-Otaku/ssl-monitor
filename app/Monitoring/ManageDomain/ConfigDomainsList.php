@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Monitoring\ManageDomain\Laravel;
+namespace App\Monitoring\ManageDomain;
 
-use App\Monitoring\ManageDomain\MonitoringDomainsList;
 use App\Monitoring\Vo\DomainName;
+
+use function config;
 
 class ConfigDomainsList implements MonitoringDomainsList
 {

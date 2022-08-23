@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Monitoring\DailyReport\Laravel\Commands;
+namespace App\DailyReport\Commands;
 
-use App\Monitoring\DailyReport\DailyReport;
+use App\DailyReport\DailyReport;
 use App\Notification\EchoNotifier;
 use Illuminate\Console\Command;
 
