@@ -20,7 +20,10 @@ use App\Telegram\Commands\Status;
 $bot->onCommand(Start::getName(), Start::class)->description(Start::getDescription());
 $bot->onCommand(Status::getName(), Status::class)->description(Status::getDescription());
 $bot->onCommand(ListSites::getName(), ListSites::class)->description(ListSites::getDescription());
-$bot->onCommand(Add::getName(), Add::class)->description(Add::getDescription());
+
+$bot->onCommand(Add::getName(), [Add::class, 'runCommandByName'])->description(Add::getDescription());
+$bot->onText(Add::getPattern(), [Add::class, 'runCommandByPattern']);
+
 $bot->onCommand(Remove::getName(), Remove::class)->description(Remove::getDescription());
 
 $bot->registerMyCommands();
