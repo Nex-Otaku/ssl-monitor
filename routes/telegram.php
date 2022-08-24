@@ -1,7 +1,11 @@
 <?php
 /** @var SergiX44\Nutgram\Nutgram $bot */
 
-use SergiX44\Nutgram\Nutgram;
+use App\Telegram\Commands\Add;
+use App\Telegram\Commands\ListSites;
+use App\Telegram\Commands\Remove;
+use App\Telegram\Commands\Start;
+use App\Telegram\Commands\Status;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,22 +17,10 @@ use SergiX44\Nutgram\Nutgram;
 |
 */
 
-$bot->onCommand('start', function (Nutgram $bot) {
-    return $bot->sendMessage('Start');
-})->description('The start command');
+$bot->onCommand(Start::getName(), Start::class)->description(Start::getDescription());
+$bot->onCommand(Status::getName(), Status::class)->description(Status::getDescription());
+$bot->onCommand(ListSites::getName(), ListSites::class)->description(ListSites::getDescription());
+$bot->onCommand(Add::getName(), Add::class)->description(Add::getDescription());
+$bot->onCommand(Remove::getName(), Remove::class)->description(Remove::getDescription());
 
-$bot->onCommand('status', function (Nutgram $bot) {
-    return $bot->sendMessage('Status');
-})->description('Status command');
-
-$bot->onCommand('list', function (Nutgram $bot) {
-    return $bot->sendMessage('List');
-})->description('List command');
-
-$bot->onCommand('add', function (Nutgram $bot) {
-    return $bot->sendMessage('Add');
-})->description('Add command');
-
-$bot->onCommand('remove', function (Nutgram $bot) {
-    return $bot->sendMessage('Remove');
-})->description('Remove command');
+$bot->registerMyCommands();
