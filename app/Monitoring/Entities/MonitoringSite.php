@@ -6,6 +6,7 @@ use App\Monitoring\Models\Monitor as MonitorModel;
 use App\Monitoring\Models\Site as SiteModel;
 use App\Monitoring\Models\Check as CheckModel;
 use App\Monitoring\Models\SiteStatus as SiteStatusModel;
+use Illuminate\Support\Carbon;
 
 class MonitoringSite
 {
@@ -160,5 +161,34 @@ class MonitoringSite
                 'days_online' => 0,        // TODO Вычислить
             ]
         );
+    }
+
+    public function getStatusLabel(): string
+    {
+        /** @var SiteStatusModel $siteStatus */
+        $siteStatus = SiteStatusModel::where(['site_id' => $this->monitor->site_id])
+            ->first();
+
+        if ($siteStatus === null) {
+            return '(нет данных)';
+        }
+
+        $code = strtoupper($siteStatus->status);
+
+        $checkedDate = $siteStatus->checked_at !== null
+            ? Carbon::createFromFormat('Y-m-d H:i:s', $siteStatus->checked_at)->format('d.m.Y H:i')
+            : '(нет)';
+
+        $uptimePercent = $siteStatus->uptime_percent;
+        $daysOnline = $siteStatus->days_online;
+        $isOk = $siteStatus->status === self::CHECK_STATUS_OK;
+
+        if ($isOk) {
+            return "{$code}, проверено {$checkedDate}, доступность {$uptimePercent}%, онлайн {$daysOnline} дней";
+        }
+
+        $reason = $siteStatus->reason;
+
+        return "{$code}, проверено {$checkedDate}, причина: {$reason}";
     }
 }
