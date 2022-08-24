@@ -81,6 +81,20 @@ class MonitoringSite
         return $items;
     }
 
+    public static function destroy(string $domainName, int $userTgId): void
+    {
+        $siteModel = SiteModel::where(['domain' => $domainName])->first();
+
+        if ($siteModel === null) {
+            return;
+        }
+
+        MonitorModel::where([
+                                'user_tg_id' => $userTgId,
+                                'site_id' => $siteModel->id,
+                            ])->delete();
+    }
+
     public function getDomainName(): string
     {
         return $this->getSite()->domain;
@@ -143,7 +157,7 @@ class MonitoringSite
                 'reason' => $reason,
                 'checked_at' => $now,
                 'uptime_percent' => '0.0', // TODO Вычислить
-                'days_online' => 0, // TODO Вычислить
+                'days_online' => 0,        // TODO Вычислить
             ]
         );
     }

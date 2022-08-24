@@ -37,5 +37,6 @@ class Add
         }
 
         MonitoringSite::create(DomainName::fromString($siteUrl)->toString(), $bot->userId());
+        $bot->sendMessage('Сайт добавлен в список отслеживания.');
     }
 }

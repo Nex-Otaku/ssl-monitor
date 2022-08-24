@@ -2,6 +2,8 @@
 
 namespace App\Telegram\Commands;
 
+use App\Monitoring\Entities\MonitoringSite;
+use App\Monitoring\Vo\DomainName;
 use SergiX44\Nutgram\Nutgram;
 
 class Remove
@@ -13,11 +15,28 @@ class Remove
 
     public static function getDescription(): string
     {
-        return 'Убрать сайт из списка';
+        return 'Убрать сайт из списка: /remove [сайт]';
     }
 
-    public function __invoke(Nutgram $bot): void
+    public static function getPattern(): string
     {
-        $bot->sendMessage('This is a command!');
+        return '/remove (.+)';
+    }
+
+    public function runCommandByName(Nutgram $bot): void
+    {
+        $bot->sendMessage('Пожалуйста, укажите сайт: /remove [сайт]');
+    }
+
+    public function runCommandByPattern(Nutgram $bot, string $siteUrl): void
+    {
+        if (!DomainName::isValid($siteUrl)) {
+            $bot->sendMessage('Некорректный формат адреса сайта. Пример адреса: mysite.ru');
+
+            return;
+        }
+
+        MonitoringSite::destroy(DomainName::fromString($siteUrl)->toString(), $bot->userId());
+        $bot->sendMessage('Сайт удалён из отслеживания.');
     }
 }

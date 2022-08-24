@@ -24,6 +24,7 @@ $bot->onCommand(ListSites::getName(), ListSites::class)->description(ListSites::
 $bot->onCommand(Add::getName(), [Add::class, 'runCommandByName'])->description(Add::getDescription());
 $bot->onText(Add::getPattern(), [Add::class, 'runCommandByPattern']);
 
-$bot->onCommand(Remove::getName(), Remove::class)->description(Remove::getDescription());
+$bot->onCommand(Remove::getName(), [Remove::class, 'runCommandByName'])->description(Remove::getDescription());
+$bot->onText(Remove::getPattern(), [Remove::class, 'runCommandByPattern']);
 
 $bot->registerMyCommands();
