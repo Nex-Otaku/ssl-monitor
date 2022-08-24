@@ -52,7 +52,7 @@ class MonitoringSite
      */
     public static function forTgUser(int $userTgId): array
     {
-        $records = MonitorModel::where(['user_tg_id' => $userTgId])->get();
+        $records = MonitorModel::where(['user_tg_id' => $userTgId])->get()->all();
 
         return self::packArray($records);
     }
