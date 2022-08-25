@@ -175,6 +175,18 @@ class MonitoringSite
 
         $code = strtoupper($siteStatus->status);
 
+        $icon = '';
+
+        if ($siteStatus->status === self::CHECK_STATUS_OK) {
+            $icon = '✅';
+        } elseif ($siteStatus->status === self::CHECK_STATUS_WARNING) {
+            $icon = '⚠';
+        } elseif ($siteStatus->status === self::CHECK_STATUS_FAIL) {
+            $icon = '❌';
+        } else {
+            $icon = '❓';
+        }
+
         $checkedDate = $siteStatus->checked_at !== null
             ? Carbon::createFromFormat('Y-m-d H:i:s', $siteStatus->checked_at)->format('d.m.Y H:i')
             : '(нет)';
@@ -184,11 +196,35 @@ class MonitoringSite
         $isOk = $siteStatus->status === self::CHECK_STATUS_OK;
 
         if ($isOk) {
-            return "{$code}, проверено {$checkedDate}, доступность {$uptimePercent}%, онлайн {$daysOnline} дней";
+            return " {$icon} {$code}, проверено {$checkedDate}, доступность {$uptimePercent}%, онлайн {$daysOnline} дней";
         }
 
         $reason = $siteStatus->reason;
 
-        return "{$code}, проверено {$checkedDate}, причина: {$reason}";
+        return " {$icon} {$code}, проверено {$checkedDate}, причина: {$reason}";
+    }
+
+    public function isOk(): bool
+    {
+        return $this->getStatusCode() === self::CHECK_STATUS_OK;
+    }
+
+    public function isWarning(): bool
+    {
+        return $this->getStatusCode() === self::CHECK_STATUS_WARNING;
+    }
+
+    public function isFail(): bool
+    {
+        return $this->getStatusCode() === self::CHECK_STATUS_FAIL;
+    }
+
+    private function getStatusCode(): ?string
+    {
+        /** @var SiteStatusModel $siteStatus */
+        $siteStatus = SiteStatusModel::where(['site_id' => $this->monitor->site_id])
+                                     ->first();
+
+        return $siteStatus?->status;
     }
 }
