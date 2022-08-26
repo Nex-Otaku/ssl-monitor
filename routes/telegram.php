@@ -26,5 +26,3 @@ $bot->onText(Add::getPattern(), [Add::class, 'runCommandByPattern']);
 
 $bot->onCommand(Remove::getName(), [Remove::class, 'runCommandByName'])->description(Remove::getDescription());
 $bot->onText(Remove::getPattern(), [Remove::class, 'runCommandByPattern']);
-
-$bot->registerMyCommands();
