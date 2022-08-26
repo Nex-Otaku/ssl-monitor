@@ -45,5 +45,9 @@ npm ci
 # Build assets using Laravel Mix
 npm run production
 
+# Register Telegram Bot
+${ARTISAN} nutgram:register-commands
+${ARTISAN} nutgram:hook:set ${TELEGRAM_WEBHOOK_URL}
+
 # Turn off maintenance mode
 ${ARTISAN} up
