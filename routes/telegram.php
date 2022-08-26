@@ -1,11 +1,11 @@
 <?php
 /** @var SergiX44\Nutgram\Nutgram $bot */
 
-use App\Telegram\Commands\Add;
-use App\Telegram\Commands\ListSites;
-use App\Telegram\Commands\Remove;
-use App\Telegram\Commands\Start;
-use App\Telegram\Commands\Status;
+use App\Telegram\BotCommands\Add;
+use App\Telegram\BotCommands\ListSites;
+use App\Telegram\BotCommands\Remove;
+use App\Telegram\BotCommands\Start;
+use App\Telegram\BotCommands\Status;
 
 /*
 |--------------------------------------------------------------------------
