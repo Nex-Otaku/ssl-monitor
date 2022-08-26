@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Telegram\Commands;
+namespace App\Telegram\BotCommands;
 
 use App\Monitoring\Entities\MonitoringSite;
 use SergiX44\Nutgram\Nutgram;
