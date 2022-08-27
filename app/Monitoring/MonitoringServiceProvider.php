@@ -11,7 +11,7 @@ class MonitoringServiceProvider extends ServiceProvider
     {
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
             $schedule->command('monitoring:check-sites')
-                     ->hourly()
+                     ->everyMinute()
                      ->withoutOverlapping();
         });
     }
