@@ -12,6 +12,8 @@ class RegistrationTest extends TestCase
 
     public function test_registration_screen_can_be_rendered()
     {
+        $this->markTestSkipped('We have no user model');
+
         $response = $this->get('/register');
 
         $response->assertStatus(200);
@@ -19,6 +21,8 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register()
     {
+        $this->markTestSkipped('We have no user model');
+
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',

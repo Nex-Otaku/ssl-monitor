@@ -12,6 +12,8 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_confirm_password_screen_can_be_rendered()
     {
+        $this->markTestSkipped('We have no user model');
+
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('/confirm-password');
@@ -21,6 +23,8 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_password_can_be_confirmed()
     {
+        $this->markTestSkipped('We have no user model');
+
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post('/confirm-password', [
@@ -33,6 +37,8 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_password_is_not_confirmed_with_invalid_password()
     {
+        $this->markTestSkipped('We have no user model');
+
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post('/confirm-password', [

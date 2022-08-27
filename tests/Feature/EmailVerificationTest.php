@@ -16,6 +16,8 @@ class EmailVerificationTest extends TestCase
 
     public function test_email_verification_screen_can_be_rendered()
     {
+        $this->markTestSkipped('We have no user model');
+
         $user = User::factory()->create([
             'email_verified_at' => null,
         ]);
@@ -27,6 +29,8 @@ class EmailVerificationTest extends TestCase
 
     public function test_email_can_be_verified()
     {
+        $this->markTestSkipped('We have no user model');
+
         Event::fake();
 
         $user = User::factory()->create([
@@ -48,6 +52,8 @@ class EmailVerificationTest extends TestCase
 
     public function test_email_is_not_verified_with_invalid_hash()
     {
+        $this->markTestSkipped('We have no user model');
+
         $user = User::factory()->create([
             'email_verified_at' => null,
         ]);
