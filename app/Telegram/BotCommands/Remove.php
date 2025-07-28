@@ -36,7 +36,7 @@ class Remove
             return;
         }
 
-        MonitoringSite::destroy(DomainName::fromString($siteUrl)->toString(), $bot->userId());
+        MonitoringSite::destroy(DomainName::fromString($siteUrl)->toString(), $bot->chatId());
         $bot->sendMessage('Сайт удалён из отслеживания.');
     }
 }

@@ -19,7 +19,7 @@ class Start
 
     public function __invoke(Nutgram $bot): void
     {
-        $bot->sendMessage($this->getMessage($bot->userId()));
+        $bot->sendMessage($this->getMessage($bot->chatId()));
     }
 
     private function getMessage(int $userTgId): string

@@ -21,7 +21,7 @@ class Status
     public function __invoke(Nutgram $bot): void
     {
         $bot->sendMessage(
-            $this->getMessage($bot->userId()),
+            $this->getMessage($bot->chatId()),
             [
                 'parse_mode' => ParseMode::HTML,
             ]
