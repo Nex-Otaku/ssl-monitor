@@ -5,6 +5,7 @@ namespace App\Notification\Laravel;
 use App\Logger\Logger;
 use App\Logger\NullLogger;
 use App\Notification\Channel\ChannelRegistry;
+use App\Notification\Channel\TelegramBotNotificationChannel;
 use App\Notification\Channel\TelegramNotificationChannel;
 use App\Notification\DefaultNotifier;
 use App\Notification\Http\GuzzleHttpClient;
@@ -28,7 +29,7 @@ class NotificationServiceProvider extends ServiceProvider
         $app = $this->app;
 
         $this->app->bind(Notifier::class, DefaultNotifier::class);
-        $this->app->bind(RecipientsList::class, ConfigRecipientsList::class);
+        $this->app->bind(RecipientsList::class, TelegramRecepients::class);
         $this->app->bind(HttpClient::class, GuzzleHttpClient::class);
         $this->app->bind(Logger::class, NullLogger::class);
 
@@ -43,7 +44,7 @@ class NotificationServiceProvider extends ServiceProvider
             ->needs(ChannelRegistry::class)
             ->give(function () use ($app) {
                 return (new ChannelRegistry())
-                    ->withTelegram($app->make(TelegramNotificationChannel::class));
+                    ->withTelegram($app->make(TelegramBotNotificationChannel::class));
             });
 
         $this->app->singleton('command.notificationTest', function () use ($app) {
