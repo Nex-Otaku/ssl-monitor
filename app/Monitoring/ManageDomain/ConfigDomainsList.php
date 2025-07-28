@@ -2,6 +2,7 @@
 
 namespace App\Monitoring\ManageDomain;
 
+use App\Monitoring\Models\Site;
 use App\Monitoring\Vo\DomainName;
 
 use function config;
@@ -10,8 +11,7 @@ class ConfigDomainsList implements MonitoringDomainsList
 {
     public function getDomains(): array
     {
-        // TODO Сделать управление доменами.
-        $domains = config('monitoring.domains');
+        $domains = Site::all()->pluck('domain')->toArray();
         $domainNames = [];
 
         foreach ($domains as $domain) {
