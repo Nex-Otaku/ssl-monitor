@@ -7,6 +7,7 @@ use App\Monitoring\ManageDomain\MonitoringDomainsList;
 use App\Monitoring\Vo\DomainName;
 use App\Notification\Notifier;
 use App\Ssl\CertificateChecker;
+use App\Ssl\CertificateInfo;
 
 class AlertChecker
 {
@@ -71,7 +72,7 @@ class AlertChecker
                 $this->notifyLastWeek($domain);
                 $this->logger->write("Осталась неделя до истечения срока сертификата. Отправлено уведомление.");
             } else {
-                $this->notifyOk($domain);
+                $this->notifyOk($domain, $certificateInfo);
                 $this->logger->write("[ OK ] Сертификат в полном порядке. Осталось дней: {$certificateInfo->daysLeft()}");
             }
         }
@@ -97,8 +98,8 @@ class AlertChecker
         $this->notifier->notifyDomainOwner($domain, 'Осталась неделя, чтобы обновить сертификат SSL.');
     }
 
-    private function notifyOk(DomainName $domain): void
+    private function notifyOk(DomainName $domain, CertificateInfo $info): void
     {
-        $this->notifier->notifyDomainOwner($domain, 'Осталась неделя, чтобы обновить сертификат SSL.');
+        $this->notifier->notifyDomainOwner($domain, "[ OK ] Сертификат в полном порядке. Осталось дней: {$info->daysLeft()}");
     }
 }
