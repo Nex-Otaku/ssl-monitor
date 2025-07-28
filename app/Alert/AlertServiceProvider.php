@@ -14,9 +14,9 @@ class AlertServiceProvider extends ServiceProvider implements DeferrableProvider
     public function boot()
     {
         $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
-            $schedule->command('alert:ssl-certificates')
-                     ->timezone('Europe/Moscow')
-                     ->dailyAt('10:00');
+            $schedule->command('alert:ssl-certificates')->everyMinute();
+                     //->timezone('Europe/Moscow')
+                     //->dailyAt('10:00');
         });
     }
 

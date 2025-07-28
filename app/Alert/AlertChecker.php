@@ -71,6 +71,7 @@ class AlertChecker
                 $this->notifyLastWeek($domain);
                 $this->logger->write("Осталась неделя до истечения срока сертификата. Отправлено уведомление.");
             } else {
+                $this->notifyOk($domain);
                 $this->logger->write("[ OK ] Сертификат в полном порядке. Осталось дней: {$certificateInfo->daysLeft()}");
             }
         }
@@ -92,6 +93,11 @@ class AlertChecker
     }
 
     private function notifyLastWeek(DomainName $domain): void
+    {
+        $this->notifier->notifyDomainOwner($domain, 'Осталась неделя, чтобы обновить сертификат SSL.');
+    }
+
+    private function notifyOk(DomainName $domain): void
     {
         $this->notifier->notifyDomainOwner($domain, 'Осталась неделя, чтобы обновить сертификат SSL.');
     }
